@@ -1,7 +1,11 @@
 #pragma once
 
 #include "Grid.h"
-
+enum GameObjectEnum {
+	ladder,
+	snake,
+	card,
+};
 // Base Class for All Game Objects ( ladders, snakes and cards )
 class GameObject
 {
@@ -15,7 +19,8 @@ public:
 	GameObject(const CellPosition & pos); // Constructor for initializing data members
 	
 	CellPosition GetPosition() const;     // A Getter for position
-
+	
+	                                          
 	// ============ Virtual Functions ============
 
 	virtual void Draw(Output* pOut) const = 0;	 // Draws the game object in the window in his position cell 
@@ -30,15 +35,11 @@ public:
 
 	// Decide the parameters that you should pass to each function	
 	//M for saving
-	virtual void Save(ofstream &OutFile,enum GameObjectEnum) = 0;	// Saves the GameObject parameters to the file
-	virtual void Load(ifstream &Infile,enum GameObjectEnum) = 0;	// Loads and Reads the GameObject parameters from the file
+	virtual void Save(ofstream &OutFile, GameObjectEnum) = 0;	// Saves the GameObject parameters to the file
+	virtual void Load(ifstream &Infile, GameObjectEnum) = 0;	// Loads and Reads the GameObject parameters from the file
 
 	virtual ~GameObject(); // Virtual destructor
 	//M
-	enum GameObjectEnum {
-		ladder,
-		snake,
-		card,
-	};
+	
 };
 

@@ -1,13 +1,32 @@
 #include "Grid.h"
 
 #include "Cell.h"
-#include "GameObject.h"
+
 #include "Ladder.h"
 #include "Card.h"
 #include "Player.h"
 
+
+int Grid::GetLaddersNum()
+{
+	return this->countL;
+}
+
+int Grid::GetsnakesNum()
+{
+	return this->countS;
+}
+
+int Grid::GetCardsNum()
+{
+	return this->countC;
+}
+
 Grid::Grid(Input * pIn, Output * pOut) : pIn(pIn), pOut(pOut) // Initializing pIn, pOut
 {
+	this->countC = 0;
+	this->countL = 0;
+	this->countS = 0;
 	// Allocate the Cell Objects of the CellList
 	for (int i = NumVerticalCells-1; i >= 0 ; i--) // to allocate cells from bottom up
 	{
@@ -50,8 +69,16 @@ bool Grid::AddObjectToCell(GameObject * pNewObject)  // think if any validation 
 			return false; // do NOT add and return false
 
 		// Set the game object of the Cell with the new game object
+		
 		CellList[pos.VCell()][pos.HCell()]->SetGameObject(pNewObject);
+		if (CellList[pos.VCell()][pos.HCell()]->HasLadder())
+			this->countL++;
+		if (CellList[pos.VCell()][pos.HCell()]->HasCard())
+			this->countC++;
+		if (CellList[pos.VCell()][pos.HCell()]->HasSnake())
+			this->countS++;
 		return true; // indicating that addition is done
+
 	}
 	return false; // if not a valid position
 }
@@ -124,6 +151,33 @@ void Grid::AdvanceCurrentPlayer()
 // ========= Other Getters =========
 
 
+void Grid::SaveAll(ofstream & OutFile, GameObjectEnum g)
+{
+	
+	for (int i = NumVerticalCells - 1; i >= 0; i--) 
+	{
+		for (int j = 0; j < NumHorizontalCells; j++) 
+		{
+			if(CellList[i][j]->GetGameObject()!=NULL)
+			CellList[i][j]->GetGameObject()->Save(OutFile, g);
+		}
+	}
+	
+}
+
+void Grid::OpenAll(ifstream & Infile, GameObjectEnum g)
+{
+
+	for (int i = NumVerticalCells - 1; i >= 0; i--)
+	{
+		for (int j = 0; j < NumHorizontalCells; j++)
+		{
+			if (CellList[i][j]->GetGameObject() != NULL)
+				CellList[i][j]->GetGameObject()->Load(Infile, g);
+		}
+	}
+}
+
 Player * Grid::GetCurrentPlayer() const
 {
 	return PlayerList[currPlayerNumber];
@@ -140,6 +194,8 @@ Ladder * Grid::GetNextLadder(const CellPosition & position)
 
 
 			///TODO: Check if CellList[i][j] has a ladder, if yes return it
+			if(CellList[i][j]->HasLadder())
+			return  dynamic_cast<Ladder *>(CellList[i][j]->GetGameObject());
 			
 
 		}

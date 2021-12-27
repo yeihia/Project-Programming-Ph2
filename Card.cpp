@@ -19,7 +19,7 @@ void Card::Draw(Output* pOut) const
 {
 
 	///TODO: call the appropriate Ouput function that draws a cell containing the "cardNumber" in "position"
-
+	pOut->DrawCell(this->GetPosition, this->cardNumber);//M
 
 }
 
@@ -35,6 +35,15 @@ void Card::Apply(Grid* pGrid, Player* pPlayer)
 	// "If a player reaches a card of any other type", the following message should be printed then wait mouse click
 
 	pGrid->PrintErrorMessage("You have reached card " + to_string(cardNumber) + ". Click to continue ...");
+}
+
+void Card::Save(ofstream & OutFile, GameObjectEnum)
+{
+	                        //after cards //M
+}
+
+void Card::Load(ifstream & Infile, GameObjectEnum)
+{
 }
 
 Card::~Card()

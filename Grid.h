@@ -1,6 +1,6 @@
 #pragma once
 #include <fstream>
-
+#include "GameObject.h"
 #include "UI_Info.h"
 #include "DEFS.h"
 
@@ -17,6 +17,10 @@ class Player;
 
 class Grid
 {
+	int countL;
+ int countS;
+ int countC;
+ 
 	Output * pOut;   // A pointer to the Output object
 	Input * pIn;     // A pointer to the Input object
 
@@ -33,6 +37,11 @@ class Grid
 	bool endGame;	       // A boolean indicating if the Game is ended or not (a player reaches the end cell of the grid or not)
 
 public:
+	int GetLaddersNum();
+	int GetsnakesNum();
+	int GetCardsNum();
+
+
 
 	Grid(Input * pIn, Output * pOut);	  // Gives the Grid a Pointer to the Output Object and the Input Object
 										  // and makes any needed initializations
@@ -64,7 +73,8 @@ public:
 	void AdvanceCurrentPlayer();     // Increments the currPlayerNum and if reaches MaxPlayerCount reset to 0 (using %)
 
 	///TODO: add any needed setter/getter "EXCEPT" ANY setters or getters of "CellList" or "PlayerList" (Forbidden for class Responsibilities)
-
+	void SaveAll(ofstream &OutFile, GameObjectEnum);
+	void OpenAll(ifstream &Infile, GameObjectEnum);
 	// ========= Other Getters =========
 	
 	Player * GetCurrentPlayer() const;	// Gets a Pointer to the Current Player	                                    

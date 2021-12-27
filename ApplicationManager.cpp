@@ -1,5 +1,5 @@
 #include "ApplicationManager.h"
-
+#include"SaveGridAction.h"
 #include "Grid.h"
 #include "AddLadderAction.h"
 #include "AddCardAction.h"
@@ -9,10 +9,12 @@
 
 ApplicationManager::ApplicationManager()
 {
+
 	// Create Input, output and Grid
 	pOut = new Output();
 	pIn = pOut->CreateInput();
 	pGrid = new Grid(pIn, pOut);
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -20,6 +22,7 @@ ApplicationManager::ApplicationManager()
 ApplicationManager::~ApplicationManager()
 {
 	delete pGrid;
+
 }
 
 //==================================================================================//
@@ -80,10 +83,29 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case TO_DESIGN_MODE:
 		pOut->CreateDesignModeToolBar(); // temporary till you made its action class (CHANGE THIS LATTER)
 		break;
+	case ADD_SNAKE:
+		pAct = new AddCardAction(this);
+		break;
+	case Save_Grid:
+		pAct = new SaveGridAction(this);
+			break;
+	case Open_Grid:
+		pAct= new OpenGridAction()
 
 		
+		
 
-		///TODO: Add a case for EACH Action type in the Design mode or Play mode
+		/////TODO: Add a case for EACH Action type in the Design mode or Play modeADD_LADDER,		// Add Ladder Action
+		//ADD_SNAKE,		// Add Snake Action	
+		//	ADD_CARD,		// Add Card Action	
+		//	Copy_CARD,
+		//	Cut_CARD,
+		//	Paste_CARD,
+		//	Delete_Game_Object,
+		//	Save_Grid,
+		//	Open_Grid,
+		//	TO_PLAY_MODE,	// Go to Play Mode
+		//	EXIT,
 
 
 

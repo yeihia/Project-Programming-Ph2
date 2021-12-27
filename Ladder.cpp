@@ -39,14 +39,20 @@ CellPosition Ladder::GetEndPosition() const
 }
 void Ladder::Save(ofstream &OutFile, GameObjectEnum g) {
 	if (g == ladder) {
-		OutFile.open("Grid.txt", ios::out);
+		
 		OutFile << this->GetPosition().GetCellNum() << " " << this->GetEndPosition().GetCellNum() << endl;
-		OutFile.close();
+		
 	}
 }
  void Ladder::Load(ifstream &Infile, GameObjectEnum g) {
-
-}
+	 int a, b;
+	 if (g == ladder) {
+		
+		 Infile >> a >> b;
+	                                                   
+		 
+	 }
+ }
 Ladder::~Ladder()
 {
 }

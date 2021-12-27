@@ -16,10 +16,13 @@ void RollDiceAction::ReadActionParameters()
 
 void RollDiceAction::Execute()
 {
-		
+	int x, y;
 	///TODO: Implement this function as mentioned in the guideline steps (numbered below) below
-
-
+	if (this->pManager->GetGrid()->GetEndGame()) 
+		this->pManager->GetGrid()->GetOutput()->PrintMessage(" Game ended....clic to continue");
+		this->pManager->GetGrid()->GetInput()->GetPointClicked(x, y);
+		return;
+	
 	// == Here are some guideline steps (numbered below) to implement this function ==
 
 	// 1- Check if the Game is ended (Use the GetEndGame() function of pGrid), if yes, make the appropriate action
@@ -35,8 +38,10 @@ void RollDiceAction::Execute()
 	// 4- Move the currentPlayer using function Move of class player
 
 	// 5- Advance the current player number of pGrid
+	Player* currP = this->pManager->GetGrid()->GetCurrentPlayer();
+	currP->Move(this->pManager->GetGrid(), diceNumber);
 
-
+		
 	// NOTE: the above guidelines are the main ones but not a complete set (You may need to add more steps).
 
 }

@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "Player.h"                                    //Done
 
 #include "GameObject.h"
 
@@ -24,7 +24,8 @@ Cell* Player::GetCell() const
 
 void Player::SetWallet(int wallet)
 {
-	this->wallet = wallet;
+
+	this->wallet = (wallet>=0&& wallet<=100)? wallet:100; //M
 	// Make any needed validations
 }
 
@@ -44,7 +45,7 @@ void Player::Draw(Output* pOut) const
 {
 	color playerColor = UI.PlayerColors[playerNum];
 
-
+	pOut->DrawPlayer(GetCell()->GetCellPosition(), playerNum, playerColor);
 	///TODO: use the appropriate output function to draw the player with "playerColor"
 
 }
@@ -55,7 +56,7 @@ void Player::ClearDrawing(Output* pOut) const
 	
 	
 	///TODO: use the appropriate output function to draw the player with "cellColor" (to clear it)
-
+	pOut->DrawPlayer(GetCell()->GetCellPosition(), playerNum, cellColor);
 }
 
 // ====== Game Functions ======
@@ -67,8 +68,25 @@ void Player::Move(Grid * pGrid, int diceNumber)
 
 
 	// == Here are some guideline steps (numbered below) to implement this function ==
-
-
+	//M
+	this->turnCount ++;
+	if (turnCount == 3)
+	{
+		this->wallet += 10 * diceNumber;
+		this->turnCount = 0;
+		return;
+	}
+	this->justRolledDiceNum = diceNumber;
+	this->GetCell()->GetCellPosition().AddCellNum(diceNumber);
+	pGrid->UpdatePlayerCell(this, GetCell()->GetCellPosition());
+	if (pCell->HasLadder)
+		pCell->GetGameObject()->Apply(pGrid, this);
+	else if(pCell->HasSnake)
+		pCell->GetGameObject()->Apply(pGrid, this);
+	else if (pCell->HasCard)
+		pCell->GetGameObject()->Apply(pGrid, this);
+	if (this->stepCount == 99)
+		pGrid->SetEndGame(true);
 	// 1- Increment the turnCount because calling Move() means that the player has rolled the dice once
 	
 	// 2- Check the turnCount to know if the wallet recharge turn comes (recharge wallet instead of move)

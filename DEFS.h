@@ -1,10 +1,7 @@
 #ifndef DEFS_H
-#define DEFS_H
-
+#define DEFS_H+0-------------
 #include "CMUgraphicsLib\CMUgraphics.h"
-
 // This file contains some global constants and definitions to be used in the project.
-
 enum ActionType // The actions supported (add more as needed)
 {
 	//  [1] Actions of Design Mode

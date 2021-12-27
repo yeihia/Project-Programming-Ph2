@@ -17,10 +17,12 @@ void CardOne::ReadCardParameters(Grid * pGrid)
 
 
 	// == Here are some guideline steps (numbered below) (numbered below) to implement this function ==
-
-
+	/*
+	Input *pIn=pGrid->GetInput();
+	Output* pOut = pGrid->GetOutput();
+	pOut->PrintMessage(" ")
 	// 1- Get a Pointer to the Input / Output Interfaces from the Grid
-
+	/*/
 	// 2- Read an Integer from the user using the Input class and set the walletAmount parameter with it
 	//    Don't forget to first print to a descriptive message to the user like:"New CardOne: Enter its wallet amount ..."
 	
