@@ -1,4 +1,5 @@
 #pragma once
+#include <fstream>
 
 #include "UI_Info.h"
 #include "DEFS.h"

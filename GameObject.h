@@ -29,10 +29,16 @@ public:
 	// They should be overridden by each inherited class
 
 	// Decide the parameters that you should pass to each function	
-	
-	//virtual void Save(ofstream &OutFile) = 0;	// Saves the GameObject parameters to the file
-	//virtual void Load(ifstream &Infile) = 0;	// Loads and Reads the GameObject parameters from the file
+	//M for saving
+	virtual void Save(ofstream &OutFile,enum GameObjectEnum) = 0;	// Saves the GameObject parameters to the file
+	virtual void Load(ifstream &Infile,enum GameObjectEnum) = 0;	// Loads and Reads the GameObject parameters from the file
 
 	virtual ~GameObject(); // Virtual destructor
+	//M
+	enum GameObjectEnum {
+		ladder,
+		snake,
+		card,
+	};
 };
 

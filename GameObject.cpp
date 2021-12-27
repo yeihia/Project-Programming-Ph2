@@ -3,6 +3,7 @@
 
 GameObject::GameObject(const CellPosition & pos)
 {
+	if(pos.IsValidCell)  //M
 	position = pos; // Sets Position
 }
 
